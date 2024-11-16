@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "138874890075",
+    "project_id": "task-management-setu",
+    "storage_bucket": "task-management-setu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138874890075:android:6a3b4e4d1a586bf5e75c7e",
+        "android_client_info": {
+          "package_name": "com.cdpindia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi-6H-DOTfJz5k_rF_EDnyuTPLzub4oQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
