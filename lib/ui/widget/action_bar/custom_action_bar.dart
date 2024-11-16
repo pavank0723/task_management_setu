@@ -6,37 +6,40 @@ class CustomActionBar extends StatelessWidget {
   final String txtTitle;
   final String txtAction;
   final String? customIcon;
-  final Color appBarBGColor;
-  final Color appBarOtherColor;
-  final Color appBarTitleColor;
   final Function()? onBack;
   final Function()? onAction;
   final bool isAppBottomShadow;
   final bool isAction;
+  final bool isCustomAction;
   final bool isCustomSvgIcon;
   final bool isIcon;
   final double iconSize;
+  final Widget? customAction;
 
-  const CustomActionBar(
-      {super.key,
-      this.txtTitle = '',
-      this.txtAction = '',
-      this.customIcon,
-      this.onBack,
-      this.onAction,
-      this.isAppBottomShadow = true,
-      this.isAction = false,
-      this.appBarBGColor = AppColor.white,
-      this.appBarOtherColor = AppColor.primary,
-      this.appBarTitleColor = AppColor.primary,
-      this.isCustomSvgIcon = true,
-      this.isIcon = false,
-      this.iconSize = 25});
+  const CustomActionBar({
+    super.key,
+    this.txtTitle = '',
+    this.txtAction = '',
+    this.customIcon,
+    this.onBack,
+    this.onAction,
+    this.isAppBottomShadow = true,
+    this.isAction = false,
+    this.isCustomAction = false,
+    this.isCustomSvgIcon = true,
+    this.isIcon = false,
+    this.iconSize = 25,
+    this.customAction,
+  });
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double sMobile = AppDimen.appSmallDevice;
+    // Extract colors from the current theme
+    final Color appBarBGColor = Theme.of(context).appBarTheme.backgroundColor ?? Colors.white;
+    final Color appBarTitleColor = Theme.of(context).textTheme.headlineLarge?.color ?? Colors.black;
+    final Color appBarOtherColor = Theme.of(context).primaryColor;
     return isAppBottomShadow
         ? Container(
             width: MediaQuery.of(context).size.width,
@@ -192,21 +195,23 @@ class CustomActionBar extends StatelessWidget {
                   ),
                 ),
                 isAction
-                    ? GestureDetector(
-                        onTap: () {
-                          onAction!();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: Text(
-                            txtAction,
-                            style: AppTextStyle.subTitle2M(
-                              txtColor: appBarOtherColor,
-                              fSize: (width <= sMobile) ? 14 : 16,
+                    ? isCustomAction
+                        ? customAction ?? const Text('NA')
+                        : GestureDetector(
+                            onTap: () {
+                              onAction!();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                txtAction,
+                                style: AppTextStyle.subTitle2M(
+                                  txtColor: appBarOtherColor,
+                                  fSize: (width <= sMobile) ? 14 : 16,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      )
+                          )
                     : const SizedBox(width: AppDimen.appSpace15 + 5),
               ],
             ),

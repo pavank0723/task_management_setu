@@ -28,7 +28,10 @@ class BaseScreen extends StatefulWidget {
   final bool isAction;
   final bool isSpacingApply;
   final bool isSafeArea;
+  final bool isCustomAction;
+  final Widget? customAction;
   final double iconSize;
+
 
   final Widget body;
   final Widget? bottomNav;
@@ -65,6 +68,8 @@ class BaseScreen extends StatefulWidget {
       this.isAction = false,
       this.isSpacingApply = true,
       this.isSafeArea = false, //true
+      this.isCustomAction = false, //true
+      this.customAction, //true
       this.onAction,
       required this.body,
       this.action = "",
@@ -129,10 +134,10 @@ class _BaseScreenState extends State<BaseScreen>
                   customIcon: widget.appBarCustomIcon,
                   iconSize: widget.iconSize,
                   isIcon: widget.isIcon,
-                  appBarBGColor: widget.appBarBGColor,
-                  appBarTitleColor: widget.appBarTitleColor,
-                  appBarOtherColor: widget.appBarOtherColor,
+
                   isCustomSvgIcon: widget.isCustomSvgIcon,
+                  isCustomAction: widget.isCustomAction,
+                  customAction: widget.customAction,
                 ),
               ),
             )
