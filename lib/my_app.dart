@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_management_setu/res/res.dart';
+import 'package:provider/provider.dart';
+import 'package:task_management_setu/network/local/local.dart';
+import 'package:task_management_setu/network/local/theme_service.dart';
+import 'package:task_management_setu/repository/repository.dart';
 import 'package:task_management_setu/route/route.dart' as route;
 
 class MyApp extends StatefulWidget {
+
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   const MyApp({super.key});
 
   @override
@@ -12,6 +18,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -24,52 +31,40 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: route.AppRoute.splashScreen,
-      onGenerateRoute: route.AppRoute.controller,
-      debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => ThemeService()..init(),
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(create: (_) => ToDoRepository()),
+          RepositoryProvider(create: (_) => DataBaseService.instance),
+        ],
+        child: Consumer<ThemeService>(
+          builder: (context, notifier, child) {
+            return MaterialApp(
+              initialRoute: route.AppRoute.splashScreen,
+              onGenerateRoute: route.AppRoute.controller,
+              debugShowCheckedModeBanner: false,
+              themeMode: notifier.isDark ? ThemeMode.dark : ThemeMode.light,
 
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme,
+              //Our custom theme applied
+              darkTheme:
+                  notifier.isDark ? notifier.darkTheme : notifier.lightTheme,
+              theme: ThemeData(
+                useMaterial3: true,
+
+                textTheme: GoogleFonts.poppinsTextTheme(
+                  Theme.of(context).textTheme,
+                ),
+                canvasColor: Colors.transparent,
+                textButtonTheme: TextButtonThemeData(style: flatButtonStyle),
+                elevatedButtonTheme:
+                    ElevatedButtonThemeData(style: raisedButtonStyle),
+                outlinedButtonTheme:
+                    OutlinedButtonThemeData(style: outlineButtonStyle),
+              ),
+            );
+          },
         ),
-        canvasColor: Colors.transparent,
-        dialogTheme: const DialogTheme(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
-        ),
-        bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Colors.white,
-        ),
-        textButtonTheme: TextButtonThemeData(style: flatButtonStyle),
-        elevatedButtonTheme: ElevatedButtonThemeData(style: raisedButtonStyle),
-        outlinedButtonTheme: OutlinedButtonThemeData(style: outlineButtonStyle),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColor.primary,
-          primaryContainer: Colors.white,
-          error: AppColor.error,
-          onTertiary: AppColor.warning,
-          surface: Colors.white,
-        ),
-        cardTheme: CardTheme(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
-          ),
-        ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColor.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: AppColor.primary),
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
-          elevation: 0,
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-            filled: true,
-            fillColor: AppColor.primaryLightest,
-            focusColor: AppColor.primary),
       ),
     );
   }
