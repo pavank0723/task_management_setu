@@ -2,17 +2,17 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static const primarySwatchColor = MaterialColor(0xFFECF0F1, {
-    50: Color.fromRGBO(231, 53, 52, .1),
-    100: Color.fromRGBO(231, 53, 52, .2),
-    200: Color.fromRGBO(231, 53, 52, .3),
-    300: Color.fromRGBO(231, 53, 52, .4),
-    400: Color.fromRGBO(231, 53, 52, .5),
-    500: Color.fromRGBO(231, 53, 52, .6),
-    600: Color.fromRGBO(231, 53, 52, .7),
-    700: Color.fromRGBO(231, 53, 52, .8),
-    800: Color.fromRGBO(231, 53, 52, .9),
-    900: Color.fromRGBO(231, 53, 52, 1),
+  static const primarySwatchColor = MaterialColor(0xFFF27921, {
+    50: Color.fromRGBO(242, 121, 33, .1),
+    100: Color.fromRGBO(242, 121, 33, .2),
+    200: Color.fromRGBO(242, 121, 33, .3),
+    300: Color.fromRGBO(242, 121, 33, .4),
+    400: Color.fromRGBO(242, 121, 33, .5),
+    500: Color.fromRGBO(242, 121, 33, .6),
+    600: Color.fromRGBO(242, 121, 33, .7),
+    700: Color.fromRGBO(242, 121, 33, .8),
+    800: Color.fromRGBO(242, 121, 33, .9),
+    900: Color.fromRGBO(242, 121, 33, 1),
   });
 
   //Primary Color

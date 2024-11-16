@@ -1,6 +1,7 @@
 class AppDimen {
   static const appHorizontalSpacing = 14.0;
   static const appButtonSize = 50.0;
+  static const appIconSize = 35.0;
   static const appHorizontalPadding = 18.0;
   static const appVerticalPadding = 18.0;
   static const appVerticalSpacing = 15.0;
